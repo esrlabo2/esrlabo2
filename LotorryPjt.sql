@@ -10,9 +10,13 @@ contract LotorryPjt {
     uint public winneridex ;
     bool    public isOpen ;
 
-    address public tmpAddr ;
-    uint    public tmpAmt ;
-    uint    public tmpTotVotingCnt ;
+    address public candidateAddr ;
+    uint    public candidateAddrAmt ;
+    uint    public cnadidateTotVotingCnt ;
+    uint    public cnadidateRank ;
+    uint    public cnadidateCnt;
+    uint    public cnadidateDividend;
+    
     uint    public winnerindex ;    
     uint    constant fixedCnt   = 3 ;
     uint    public totLotteryAm = 0 ;    
@@ -97,14 +101,15 @@ contract LotorryPjt {
     }
 
     // step2_confirm
-    function lotteryGo_confirm(uint no) public {
-        tmpTotVotingCnt = candidate.length ;
+    function lotteryGoView(uint no) public {
+        cnadidateTotVotingCnt = candidate.length ;
 
-        require(no <= tmpTotVotingCnt || (tmpTotVotingCnt == 1 && no ==0 )) ;
+        require(no <= cnadidateTotVotingCnt || (cnadidateTotVotingCnt == 1 && no ==0 )) ;
 
-        tmpAddr = candidate[no].addr   ;
-        tmpAmt  = candidate[no].amount ;
-
+        candidateAddr = candidate[no].addr   ;
+        cnadidateRank = candidate[no].rank   ;
+        cnadidateCnt  = candidate[no].okCnt ;
+        cnadidateDividend  = candidate[no].dividend ;                
     }
 
     // 
@@ -112,11 +117,7 @@ contract LotorryPjt {
         uint l_num1 ;
         uint l_num2 ;
         uint l_num3 ;
-        uint l_okCnt  = 0 ;
-
-        address l_winneraddr ;
-
-        uint   l_length = candidate.length ;
+        uint l_length = candidate.length ;
         
         lotteryNum1 =lotto_result[0] ;
         lotteryNum2 =lotto_result[1] ;
@@ -126,7 +127,7 @@ contract LotorryPjt {
             l_num1 = candidate[i].num1 ;
             l_num2 = candidate[i].num2 ;
             l_num3 = candidate[i].num3 ;
-            
+
             //okCnt Algorithm modify
             if (((lotteryNum1 == l_num1) || (lotteryNum1 == l_num2)  || (lotteryNum1 == l_num3)))
             {
@@ -141,9 +142,10 @@ contract LotorryPjt {
                 candidate[i].okCnt += 1 ;
             }  
             //okCnt Algorithm modify
-            if(candidate[i].okCnt == fixedCnt  ) candidate[i].rank = 1 ;
-            if(candidate[i].okCnt == fixedCnt-1) candidate[i].rank = 2 ;
-            if(candidate[i].okCnt == fixedCnt-2) candidate[i].rank = 3 ;              
+            if(candidate[i].okCnt == 3 ) candidate[i].rank = 1 ;
+            if(candidate[i].okCnt == 2 ) candidate[i].rank = 2 ;
+            if(candidate[i].okCnt == 1 ) candidate[i].rank = 3 ;  
+
         }
 
         // Finally
@@ -156,31 +158,28 @@ contract LotorryPjt {
                 rank3Cnt += 1 ;                
             }
         }
-        rank1Amt = (totLotteryAm*50/100)/rank1Cnt;
-        rank2Amt = (totLotteryAm*30/100)/rank2Cnt;
-        rank3Amt = (totLotteryAm*20/100)/rank3Cnt;
-        
+
+        if(rank1Cnt > 0 ) rank1Amt = (totLotteryAm*50/100)/rank1Cnt;
+        if(rank2Cnt > 0 ) rank2Amt = (totLotteryAm*30/100)/rank2Cnt;
+        if(rank3Cnt > 0 ) rank3Amt = (totLotteryAm*20/100)/rank3Cnt;
+
         for(uint k = 0 ; k < l_length ; k++ ){
             if(candidate[k].okCnt == 3   ){
-                candidate[i].dividend =  rank1Amt ;
+                candidate[k].dividend =  rank1Amt ;
             }else if(candidate[k].okCnt == 2   ){
-               candidate[i].dividend =  rank2Amt ;         
+               candidate[k].dividend =  rank2Amt ;         
             }else if(candidate[k].okCnt == 1   ){
-               candidate[i].dividend =  rank3Amt ;             
+               candidate[k].dividend =  rank3Amt ;             
             }else{
-               candidate[i].dividend =  0 ;
+               candidate[k].dividend =  0 ;
             }
         }
     }
-
 
     function open() public payable{ isOpen = true ; }
 
     function close() public payable{ isOpen = false ; }
 
-    function vote() public payable{
-        betters.push(msg.sender);
-    }
 
      function lotto_Num() public payable{ 
          //randomly pick a number 
