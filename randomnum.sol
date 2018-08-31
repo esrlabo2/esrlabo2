@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
-// contract address : 0x2aeb9de538990766d97bb0735239004e0d208c17
 
+// 0x2aeb9de538990766d97bb0735239004e0d208c17
 contract LotorryPjt {
     address[] public betters ; // Investor 
     address public owner ;
