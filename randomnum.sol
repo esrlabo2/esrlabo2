@@ -32,17 +32,6 @@ contract Lotto {
         owner = msg.sender;
 
     }
-    /*
-    function enter () public payable {
-        
-        if(msg.sender == "0x4be9fff5d658286c38fdc77b0c7b8827188b6752")
-        {
-            
-        }
-        
-        betters.push(msg.sender);
-    }    
-    */
     function lotto_Num() public payable{
         //randomly pick a number
         
@@ -72,17 +61,7 @@ contract Lotto {
        {
            
        }
-       //lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
-       //     lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
-        //    lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
-        //    lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
-        //    lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
-        //    lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
-               //temp = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
-        //3rd = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
-        //4th = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
-        //5th = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
-        //6th = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
+
     }
 }
 
