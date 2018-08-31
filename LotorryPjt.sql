@@ -126,14 +126,21 @@ contract LotorryPjt {
             l_num1 = candidate[i].num1 ;
             l_num2 = candidate[i].num2 ;
             l_num3 = candidate[i].num3 ;
-
-            if (((lotteryNum1 == l_num1) || (lotteryNum1 == l_num2)  || (lotteryNum1 == l_num3))
-                || ((lotteryNum2 == l_num1) || (lotteryNum2 == l_num2)  || (lotteryNum2 == l_num3))
-                || ((lotteryNum3 == l_num1) || (lotteryNum3 == l_num2)  || (lotteryNum3 == l_num3))
-               ){
+            
+            //okCnt Algorithm modify
+            if (((lotteryNum1 == l_num1) || (lotteryNum1 == l_num2)  || (lotteryNum1 == l_num3)))
+            {
                 candidate[i].okCnt += 1 ;
             }
-
+            if (((lotteryNum2 == l_num1) || (lotteryNum2 == l_num2)  || (lotteryNum2 == l_num3)))
+            {
+                candidate[i].okCnt += 1 ;
+            }
+            if (((lotteryNum3 == l_num1) || (lotteryNum3 == l_num2)  || (lotteryNum3 == l_num3)))
+            {
+                candidate[i].okCnt += 1 ;
+            }  
+            //okCnt Algorithm modify
             if(candidate[i].okCnt == fixedCnt  ) candidate[i].rank = 1 ;
             if(candidate[i].okCnt == fixedCnt-1) candidate[i].rank = 2 ;
             if(candidate[i].okCnt == fixedCnt-2) candidate[i].rank = 3 ;              
