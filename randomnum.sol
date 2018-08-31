@@ -1,42 +1,89 @@
 pragma solidity ^0.4.24;
 
 contract Lotto {
-  uint[] public lotto_result;
+    address[] public betters;
+    address owner;
+    address public winneraddr;
+    
+    uint[] public lotto_result;
+    uint public prize;
+    
+    function senders(uint) public view returns (address[])
+    {
+        return betters;
+    }
+    function get_gas_data(uint) public view returns (uint)
+    {
+        return address(this).balance;
+    }
+    function get_lotto_result() public view returns (uint[])
+    {
+        if (lotto_result.length == 3)
+        {
+            return lotto_result;    
+        }
+        else
+        {
+            
+        }
+    }
+ 
+    constructor() public {
+        owner = msg.sender;
 
-  function get_lotto_result() public view returns (uint[])
-  {
-      if (lotto_result.length == 3)
-      {
-          return lotto_result;    
-      }
-      else
-      {
-          
-      }
-  }
-  
-  function randomNum() public payable{
+    }
+    /*
+    function enter () public payable {
+        
+        if(msg.sender == "0x4be9fff5d658286c38fdc77b0c7b8827188b6752")
+        {
+            
+        }
+        
+        betters.push(msg.sender);
+    }    
+    */
+    function lotto_Num() public payable{
         //randomly pick a number
         
-        uint[3] memory data_result;
-        for (uint i = 0; i < data_result.length; i++)
+        address operator = 0x4be9fff5d658286c38fdc77b0c7b8827188b6752;
+        
+        if(msg.sender == operator)
         {
-            data_result[i] = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, gasleft()))) % 10 + 1;
-            for (uint j = 0; j < i; j++)
+            uint[3] memory data_result;
+            for (uint i = 0; i < data_result.length; i++)
             {
-                if (data_result[j] == data_result[i])
+                data_result[i] = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, gasleft()))) % 10 + 1;
+                for (uint j = 0; j < i; j++)
                 {
-                    data_result[i] = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, gasleft()))) % 10 + 1;        
-                }
-                else
-                {
-                    
+                    if (data_result[j] == data_result[i])
+                    {
+                        data_result[i] = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, gasleft()))) % 10 + 1;        
+                    }
+                    else
+                    {
+                        
+                    }
                 }
             }
+             lotto_result = data_result;
         }
-
-        lotto_result = data_result;
-     }
+       else
+       {
+           
+       }
+       //lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
+       //     lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
+        //    lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
+        //    lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
+        //    lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
+        //    lotto_result.push((uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1);
+               //temp = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
+        //3rd = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
+        //4th = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
+        //5th = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
+        //6th = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 45) + 1;
+    }
 }
 
 0x7784d900fe167c473346994a959c2ec054049d02
