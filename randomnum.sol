@@ -38,3 +38,5 @@ contract Lotto {
         lotto_result = data_result;
      }
 }
+
+0x7784d900fe167c473346994a959c2ec054049d02
