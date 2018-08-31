@@ -1,5 +1,6 @@
 pragma solidity ^0.4.24;
-// contract address : 0x5b1b0a269637f35b5d2b0384660a94f0e7283143
+// contract address : 0x2aeb9de538990766d97bb0735239004e0d208c17
+
 contract LotorryPjt {
     address[] public betters ; // Investor 
     address public owner ;
@@ -174,15 +175,15 @@ contract LotorryPjt {
                candidate[k].dividend =  0 ;
             }
         }
+        
         totLotteryAm = 0 ;
     }
 
-    function withdraw() public{
+    function withdraw() public payable checkStart(false){
         uint l_length = candidate.length ;
         
         for(uint i= 0 ; i < l_length ; i++){
-            candidate[i].dividend = 0 ;
-            address(candidate[i].addr).transfer(candidate[i].dividend);
+            candidate[i].addr.transfer(candidate[i].dividend * 1 ether );
         }
     }
 
@@ -192,7 +193,7 @@ contract LotorryPjt {
 
     function lotto_Num() public payable{ 
              //randomly pick a number 
-              
+
              //address operator = 0x4be9fff5d658286c38fdc77b0c7b8827188b6752; 
              address operator = 0x0d84458db87cc5a0cb4df7e581ff768dc01781fb ;
              
